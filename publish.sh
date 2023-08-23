@@ -14,4 +14,5 @@ fi
 ./build.sh $VERSION
 git add *
 git commit
+git push
 docker push codetreats/simple-pipeline:$VERSION

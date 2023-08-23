@@ -12,7 +12,6 @@ fi
 
 # build image
 ./build.sh $VERSION
-
+git add *
 git commit
-git tag $VERSION
 docker push codetreats/simple-pipeline:$VERSION

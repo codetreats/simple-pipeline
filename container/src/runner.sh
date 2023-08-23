@@ -1,8 +1,9 @@
 #!/bin/bash
 ###############################################
 HTML_DIR=/var/www/html
+BEFORE=/job/before.sh
 JOB=/job/job.sh
-JOB_EXECUTER=/pipeline/src/job_executer.sh
+AFTER=/job/after.sh
 TRIGGER_DIR=$HTML_DIR/trigger
 LOG_DIR=$HTML_DIR/logs
 STATUS_DIR=$HTML_DIR/status
@@ -31,8 +32,10 @@ while true; do
         chown $WWW_USER:$WWW_USER $LOG
 
         # run job
+        $BEFORE
         $JOB $STATUS > $LOG 2>&1
         RESULT=$?
+        $AFTER $RESULT
 
         # evaluate result
         DT=$(date "+%F_%T")

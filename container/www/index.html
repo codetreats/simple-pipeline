@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +9,22 @@
     <script src="job_watcher.js" defer></script>
     <title>Select job</title>
 </head>
+
 <body onload="start_timer()">
     <h1 id="main_title">Choose job</h1>
     <div id="button_container_outer">
         <div id="button_container_inner"></div>
-            <button class="square_button" id="back_button" onclick="back()"></button>    
-            <button class="square_button" id="trigger_button" onclick="add_trigger()"></button>    
-        </div>
+        <button class="square_button" id="back_button" onclick="back()"></button>
+        <button class="square_button" id="trigger_button" onclick="add_trigger()"></button>
+    </div>
+    </div>
+    <p></p>
+    <div id="params_container">
+        <label for="params">Params: </label>
+        <input type="text" id="params" name="params">
     </div>
     <p></p>
     <div id="main_container"></div>
 </body>
+
 </html>

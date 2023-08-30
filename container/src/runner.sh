@@ -19,6 +19,7 @@ while true; do
     fi
     if [ -f $TRIGGER_FILE ]
     then
+        PARAMS=$(cat $TRIGGER_FILE)
         rm $TRIGGER_FILE
         
         ## prepare job
@@ -32,10 +33,10 @@ while true; do
         chown $WWW_USER:$WWW_USER $LOG
 
         # run job
-        $BEFORE
-        $JOB $STATUS > $LOG 2>&1
+        $BEFORE $PARAMS
+        $JOB $STATUS $PARAMS > $LOG 2>&1
         RESULT=$?
-        $AFTER $RESULT
+        $AFTER $RESULT<$PARAMS
 
         # evaluate result
         DT=$(date "+%F_%T")

@@ -25,7 +25,11 @@ async function load() {
 
     const jobs = await get_jobs()
     console.info("Found jobs:", jobs)
-    if (jobs.length == 0)  {
+    if (jobs.length <= 1) {
+        back_button.style.visibility = "hidden"
+        back_button.style.display = "none"
+    }
+    if (jobs.length == 0) {
         load_job("")
     } else if (jobs.length == 1) {
         load_job(jobs[0]);
@@ -54,11 +58,11 @@ async function load_job(job) {
     button_container.style.visibility = "visible"
     const tmp = await get_job_executions(job)
     const executions = tmp
-            .filter(e => e !== 'title.txt')
-            .sort((a, b) => b.localeCompare(a))
+        .filter(e => e !== 'title.txt')
+        .sort((a, b) => b.localeCompare(a))
     console.info("Found executions:", executions)
     if (executions.length === 0) {
-        main_container.innerHTML = "No executions found"        
+        main_container.innerHTML = "No executions found"
     } else if (arrays_are_equal(executions, old_executions)) {
         console.info("Job still running -> refresh job")
         console.info
@@ -102,7 +106,8 @@ async function parse_execution(job, execution) {
     const status = await parse_status('status/' + job + "/" + execution)
     const date = execution.split("_")[0]
     const time = execution.split("_")[1].split(".")[0]
-    let html = '<tr class="job_row" onclick="window.location=\'logs/' + job + '/' + execution + '\'"><td class="timestamp">' + date + '<br>' + time + '</td>'
+    let cells = '<td class="timestamp">' + date + '<br>' + time + '</td>'
+    let status_cell = '<td class="job_status job_status_executing"></td>'
     for (let i = 0; i < status.length; i++) {
         step = status[i]
         if (step.description == "START") {
@@ -118,17 +123,22 @@ async function parse_execution(job, execution) {
             cls = "step_finished" // if it is not the last line, this step is finished
             endtime = status[i + 1].timestamp
         }
-                
+
         if (description == "FAILED") {
-            html += '<td class="step step_failed">' + format_step(step, endtime) + '</td>'
+            cells += '<td class="step step_failed">' + format_step(step, endtime) + '</td>'
+            status_cell = '<td class="job_status job_status_failed"></td>'
             break;
         } else if (description == "END") {
-            html += '<td class="step step_finished">' + format_step(step, endtime) + '</td>'
+            cells += '<td class="step step_finished">' + format_step(step, endtime) + '</td>'
+            status_cell = '<td class="job_status job_status_finished"></td>'
             break;
         } else {
-            html += '<td class="step ' + cls + '">' + format_step(step, endtime) + '</td>'
+            cells += '<td class="step ' + cls + '">' + format_step(step, endtime) + '</td>'
         }
-      }
+    }
+    let html = '<tr class="job_row" onclick="window.location=\'logs/' + job + '/' + execution + '\'">'
+    html += status_cell
+    html += cells
     html += '</tr>'
     return html
 }
@@ -165,19 +175,19 @@ async function parse_status(path) {
     const response = await fetch(path, { cache: "no-store" });
     const text = await response.text();
     const lines = text.split('\n').filter(line => line.trim() !== '');
-  
+
     const parsedData = lines.map(line => {
-      const parts = line.split(':');
-      const timestamp = parts[0].replace('_', ' ') + ':' + parts[1] + ':' + parts[2];
-      const description = parts.slice(3).join(':');
-  
-      console.log("Timestamp: ", timestamp)
-      return {
-        timestamp: new Date(timestamp),
-        description: description
-      };
+        const parts = line.split(':');
+        const timestamp = parts[0].replace('_', ' ') + ':' + parts[1] + ':' + parts[2];
+        const description = parts.slice(3).join(':');
+
+        console.log("Timestamp: ", timestamp)
+        return {
+            timestamp: new Date(timestamp),
+            description: description
+        };
     });
-  
+
     return parsedData;
 }
 
@@ -193,22 +203,26 @@ function query_param(name) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(name);
-  }
-  
+}
+
 function is_empty(value) {
     return typeof value !== 'string' || value.trim() === '';
 }
 
 function arrays_are_equal(array1, array2) {
     if (array1.length !== array2.length) {
-      return false;
-    }  
+        return false;
+    }
     return array1.every((value, index) => value === array2[index]);
 }
 
-async function add_trigger() {
+async function add_trigger(params = "") {
     if (current_job !== undefined) {
+        if (params == "" && document.getElementById('params') != null) {
+            params = document.getElementById('params').value
+        }
+        const params_param = is_empty(params) ? "" : "&params=" + params
         console.info("Add trigger for", current_job)
-        await fetch('trigger.php?job=' + current_job, { cache: "no-store" })
-    }    
+        await fetch('trigger.php?job=' + current_job + params_param, { cache: "no-store" })
+    }
 }

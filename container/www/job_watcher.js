@@ -192,10 +192,14 @@ async function parse_status(path) {
 }
 
 async function get_title(job) {
-    const response = await fetch('status/' + job + '/title.txt', { cache: "no-store" });
-    const text = await response.text();
-    const title = text.split('\n').filter(line => line.trim() !== '')[0].trim();
-    return title
+    try {
+        const response = await fetch('status/' + job + '/title.txt', { cache: "no-store" });
+        const text = await response.text();
+        const title = text.split('\n').filter(line => line.trim() !== '')[0].trim();
+        return title
+    } catch (e) {
+        return "unnamed job"
+    }
 }
 
 

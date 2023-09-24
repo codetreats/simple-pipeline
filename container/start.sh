@@ -10,4 +10,5 @@ dos2unix /etc/cron.d/cronjob
 cron
 crontab /etc/cron.d/cronjob
 /pipeline/src/htaccess.sh
+/pipeline/src/prepare.sh
 /pipeline/src/runner.sh

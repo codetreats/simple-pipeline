@@ -5,6 +5,12 @@ let old_executions_html = [];
 const main_container = document.getElementById('main_container');
 const button_container = document.getElementById('button_container_outer');
 const back_button = document.getElementById('back_button')
+const trigger_button = document.getElementById('trigger_button')
+
+back_button.addEventListener("click", back);
+trigger_button.addEventListener("click", add_trigger);
+
+start_timer()
 
 async function start_timer() {
     setInterval(load, 5000)

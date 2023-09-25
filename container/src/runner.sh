@@ -36,7 +36,7 @@ while true; do
         $BEFORE $PARAMS
         $JOB $STATUS $PARAMS > $LOG 2>&1
         RESULT=$?
-        $AFTER $RESULT<$PARAMS
+        $AFTER $RESULT $PARAMS
 
         # evaluate result
         DT=$(date "+%F_%T")

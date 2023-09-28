@@ -5,10 +5,15 @@ let old_executions_html = [];
 const main_container = document.getElementById('main_container');
 const button_container = document.getElementById('button_container_outer');
 const back_button = document.getElementById('back_button')
+const cancel_button = document.getElementById('cancel_button')
 const trigger_button = document.getElementById('trigger_button')
+const power_button = document.getElementById('power_button')
+const enabled_switch = document.getElementById('enabled_switch')
 
 back_button.addEventListener("click", back);
+cancel_button.addEventListener("click", cancel);
 trigger_button.addEventListener("click", add_trigger);
+enabled_switch.addEventListener("click", switch_enable_disable);
 
 start_timer()
 
@@ -53,6 +58,21 @@ async function load() {
 async function back() {
     current_job = undefined
     load()
+}
+
+async function cancel() {
+    if (current_job !== undefined) {
+        console.info("Cancel job: ", current_job)
+        fetch('trigger.php?filename=cancel&job=' + current_job, { cache: "no-store" })
+    }
+}
+
+async function switch_enable_disable() {
+    const enabled = enabled_switch.checked ? "1" : "0"
+    if (current_job !== undefined) {
+        console.info("Enable job: ", current_job)
+        fetch('trigger.php?filename=enabled&job=' + current_job + '&params=' + enabled, { cache: "no-store" })
+    }
 }
 
 async function load_job(job) {
@@ -233,6 +253,6 @@ async function add_trigger(params = "") {
         }
         const params_param = is_empty(params) ? "" : "&params=" + params
         console.info("Add trigger for", current_job)
-        await fetch('trigger.php?job=' + current_job + params_param, { cache: "no-store" })
+        await fetch('trigger.php?filename=trigger&job=' + current_job + params_param, { cache: "no-store" })
     }
 }

@@ -11,11 +11,12 @@ if [[ $APACHE_HTTPS_PORT != "" ]] ; then
   sed -i "s/Listen 443/Listen $APACHE_HTTPS_PORT/g" /etc/apache2/ports.conf
 fi
 
-service apache2 start
 echo $JOB_TITLE > /var/www/html/status/title.txt
+service apache2 start
 dos2unix /etc/cron.d/cronjob
 cron
 crontab /etc/cron.d/cronjob
 /pipeline/src/htaccess.sh
 /pipeline/src/prepare.sh
+/pipeline/src/killer.sh &
 /pipeline/src/runner.sh

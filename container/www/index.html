@@ -13,10 +13,15 @@
 <body>
     <h1 id="main_title">Choose job</h1>
     <div id="button_container_outer">
-        <div id="button_container_inner"></div>
-        <button class="square_button" id="back_button"></button>
-        <button class="square_button" id="trigger_button"></button>
-    </div>
+        <button title="Back To Job Chooser" class="square_button" id="back_button"></button>
+        <button title="Disable/Enable Jobs" class="square_button" id="power_button">
+            <label class="switch">
+                <input id="enabled_switch" type="checkbox" checked="checked">
+                <span class="slider round"></span>
+            </label>
+        </button>
+        <button title="Cancel Job" class="square_button" id="cancel_button"></button>
+        <button title="Run Job" class="square_button" id="trigger_button"></button>
     </div>
     <p></p>
     <div id="params_container">

@@ -1,0 +1,12 @@
+version: '3'
+services:
+  networkmonitor:
+    container_name: "demo_pipeline"
+    image: "codetreats/simple-pipeline:master-SNAPSHOT"
+    environment:
+      - TZ=Europe/Berlin
+      - KEEP_LOGS=0.005
+      - JOB_TITLE=Demo Pipeline
+    ports:
+      - 49999:80
+    restart: always

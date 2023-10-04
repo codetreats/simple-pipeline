@@ -1,5 +1,5 @@
 <?php
-function mymail($to,$subject,$message)
+function mymail($subject,$message)
 {
 
 $host = getenv("MAIL_HOST");
@@ -64,5 +64,5 @@ if(substr($res,0,3) != "221") return "QUIT failed";
 return true;
 }
 
-mymail($to, $argv[1], $argv[2]);
+mymail($argv[1], $argv[2]);
 ?>

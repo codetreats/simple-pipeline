@@ -1,2 +1,2 @@
 #!/bin/bash
-touch /var/www/html/trigger/trigger.flag
+touch /var/www/html/pipeline/trigger/trigger.flag

@@ -10,9 +10,7 @@ then
     exit 1
 fi
 
-# build image
+echo "Build Image"
 ./build.sh $VERSION
-git add *
-git commit
-git push
+echo "Push Image"
 docker push codetreats/simple-pipeline:$VERSION

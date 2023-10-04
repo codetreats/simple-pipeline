@@ -1,15 +1,8 @@
 #!/bin/bash
 ###############################################
-HTML_DIR=/var/www/html
-BEFORE=/job/before.sh
-JOB=/job/job.sh
-AFTER=/job/after.sh
+HTML_DIR=/var/www/html/pipeline
 TRIGGER_DIR=$HTML_DIR/trigger
-LOG_DIR=$HTML_DIR/logs
-STATUS_DIR=$HTML_DIR/status
-TRIGGER_FILE=$TRIGGER_DIR/trigger.flag
 CANCELLED_FILE=$TRIGGER_DIR/cancel.flag
-WWW_USER=www-data
 ###############################################
 
 kill_all()

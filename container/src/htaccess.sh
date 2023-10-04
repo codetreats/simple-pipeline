@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-FILE=/var/www/html/logs/.htaccess
+FILE=/var/www/html/pipeline/logs/.htaccess
 
 echo "HTUSERS=$HTUSERS"
 

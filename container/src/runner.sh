@@ -1,6 +1,6 @@
 #!/bin/bash
 ###############################################
-HTML_DIR=/var/www/html
+HTML_DIR=/var/www/html/pipeline
 BEFORE=/job/before.sh
 JOB=/job/job.sh
 AFTER=/job/after.sh

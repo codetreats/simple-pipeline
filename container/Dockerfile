@@ -1,7 +1,7 @@
 FROM ubuntu:22.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
-RUN apt-get install -q -y \
+RUN apt-get update && apt-get install -q -y \
     aptitude nano inotify-tools curl wget jq zip cron dos2unix \
     apache2 php libapache2-mod-php php-cli php-common \
     python3 python3-pip \

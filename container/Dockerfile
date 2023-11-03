@@ -14,6 +14,7 @@ RUN true > /etc/cron.d/cronjob
 COPY www/ /var/www/html/pipeline/
 COPY www/redirect.html /var/www/html/index.html
 COPY src/ /pipeline/src
+COPY src/menu.txt /var/www/html/pipeline/menu.txt
 COPY src/trigger.sh /
 COPY src/update.sh /
 COPY job/ /job

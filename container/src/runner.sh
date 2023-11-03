@@ -48,8 +48,10 @@ while true; do
             DT=$(date "+%F_%T")
             if [[ $RESULT -eq 0 ]] ; then        
                 echo "$DT"":END" >> $STATUS
+                /update.sh 0 "Pipeline finished"
             else
                 echo "$DT"":FAILED" >> $STATUS
+                /update.sh 3 "Pipeline failed"
             fi
 
             # remove old logs

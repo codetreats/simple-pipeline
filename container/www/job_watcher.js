@@ -79,7 +79,9 @@ async function load_job(job) {
     console.info("Load job:", job)
     current_job = job
     const title = await get_title(job)
+    const menu = await get_menu(job)
     document.getElementById('main_title').innerHTML = title
+    document.getElementById('menu__box').innerHTML = menu
     document.title = title
     button_container.style.visibility = "visible"
     const tmp = await get_job_executions(job)
@@ -223,6 +225,24 @@ async function get_title(job) {
         const text = await response.text();
         const title = text.split('\n').filter(line => line.trim() !== '')[0].trim();
         return title
+    } catch (e) {
+        return "unnamed job"
+    }
+}
+
+async function get_menu(job) {
+    try {
+        const response = await fetch('.' + job + '/menu.txt', { cache: "no-store" });
+        const lines = await response.text();
+        let menu = ""
+        lines.split('\n').forEach(line => {
+            if (line.trim() != "") {
+                const caption = line.split("=>")[0]
+                const link = line.split("=>")[1]
+                menu += "<li><a class='menu__item' href='" + link.trim() + "'>" + caption.trim() + "</a></li>"    
+            }            
+        });        
+        return menu
     } catch (e) {
         return "unnamed job"
     }

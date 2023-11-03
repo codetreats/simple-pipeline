@@ -10,9 +10,9 @@ then
      docker rm -f demo_pipeline
 fi
 
-docker image prune -f
-
 # build image
-../build.sh master-SNAPSHOT
-
+cd container
+docker build -t demo_pipeline:master-SNAPSHOT .
+cd ..
 docker-compose up --detach
+

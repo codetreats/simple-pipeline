@@ -13,6 +13,10 @@ fi
 
 echo $JOB_TITLE > /var/www/html/pipeline/status/title.txt
 service apache2 start
+dos2unix /bin/debug
+dos2unix /bin/release
+dos2unix /bin/menu
+dos2unix /bin/crontrigger
 dos2unix /etc/cron.d/cronjob
 cron
 crontab /etc/cron.d/cronjob

@@ -11,6 +11,8 @@ RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/g
 RUN apt-get update && apt-get install -q -y gh
 RUN mkdir -p /pipeline/src /var/www/html/pipeline/trigger /var/www/html/pipeline/status /var/www/html/pipeline/logs
 RUN true > /etc/cron.d/cronjob
+COPY bin/* /bin/
+RUN chmod +x /bin/*
 COPY www/ /var/www/html/pipeline/
 COPY www/redirect.html /var/www/html/index.html
 COPY src/ /pipeline/src

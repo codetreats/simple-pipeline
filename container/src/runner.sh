@@ -1,4 +1,6 @@
 #!/bin/bash
+cd $(dirname "$0")
+BASEDIR=$(pwd)
 ###############################################
 HTML_DIR=/var/www/html/pipeline
 BEFORE=/job/before.sh
@@ -70,9 +72,11 @@ while true; do
             if [[ $RESULT -eq 0 ]] ; then        
                 echo "$DT"":END" >> $STATUS
                 /update.sh 0 "Pipeline finished" $OVERRIDE_MONITOR_SRC
+                $BASEDIR/sendlogs.sh OK $LOG
             else
                 echo "$DT"":FAILED" >> $STATUS
                 /update.sh 3 "Pipeline failed" $OVERRIDE_MONITOR_SRC
+                $BASEDIR/sendlogs.sh FAIL $LOG
             fi
 
             # remove old logs

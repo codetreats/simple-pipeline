@@ -27,8 +27,7 @@ while true; do
     if [ -f $TRIGGER_FILE ]
     then
         sleep 1 # wait until all params are written
-        PARAMS=$(cat $TRIGGER_FILE | grep -v "HIDDEN_PARAM")
-        OVERRIDE_MONITOR_SRC=$(cat $TRIGGER_FILE | grep "HIDDEN_PARAM_MONITOR_SRC" | cut -d "=" -f2)
+        source $TRIGGER_FILE
 
         rm $TRIGGER_FILE
         ENABLED=1
@@ -43,7 +42,17 @@ while true; do
             LOG=$LOG_DIR/$DT.log
 
             echo "$DT"":START" > $STATUS
-            touch $LOG
+
+            echo "[STEP] " > $LOG
+            echo "[STEP] #############################################" >> $LOG
+            echo "[STEP] $DT:START" >> $LOG
+            if [[ "$PARAMS" != "" ]] ; then
+              echo "[STEP] Params: $PARAMS" >> $LOG
+            fi
+            if [[ "$OVERRIDE_MONITOR_SRC" != "" ]] ; then
+              echo "[STEP] Monitor SRC: $OVERRIDE_MONITOR_SRC" >> $LOG
+            fi
+            echo "[STEP] #############################################" >> $LOG
             chown $WWW_USER:$WWW_USER $STATUS
             chown $WWW_USER:$WWW_USER $LOG
 

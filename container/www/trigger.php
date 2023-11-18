@@ -26,7 +26,9 @@ if (!isValidFilename($_GET['filename'])) {
 $filename = getcwd() . '/trigger/' . $_GET["job"] . '/' . $_GET["filename"] . ".flag"; 
 $file = fopen($filename, 'w');
 if (isset($_GET['params'])) {
-    fwrite( $file, $_GET['params'] . "\n");
+    foreach(explode(";", $_GET['params']) as $param) {
+        fwrite( $file, $param . "\n");
+    }    
 }
 fclose($file);
 ?>

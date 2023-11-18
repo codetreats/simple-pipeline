@@ -24,6 +24,6 @@ if [[ $MONITOR_URL == "" ]] ; then
     exit
 fi
 
-echo "Update Monitor: $LEVEL $MSG"
+echo "Update Monitor: $LEVEL $MSG $SRC"
 
 curl -G -d "src=$SRC" --data-urlencode "val=$MSG" -d "level=$LEVEL" -d "secret=$SECRET" $MONITOR_URL

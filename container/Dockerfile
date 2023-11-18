@@ -2,8 +2,8 @@ FROM ubuntu:22.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get update && apt-get install -q -y \
-    aptitude nano inotify-tools curl wget jq zip cron dos2unix \
-    apache2 php libapache2-mod-php php-cli php-common \
+    aptitude nano inotify-tools curl wget jq zip cron dos2unix rsync \
+    apache2 php libapache2-mod-php php-cli php-common php-imap php-curl \
     python3 python3-pip \
     openjdk-17-jdk
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg

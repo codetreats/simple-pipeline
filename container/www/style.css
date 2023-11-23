@@ -123,6 +123,10 @@ td.step_executing {
     content: "\25B6";
 }
 
+#second_back_button:before {
+  content: "\21B6";
+}
+
 #back_button:before {
     content: "\21B6";
 }
@@ -130,8 +134,6 @@ td.step_executing {
 #cancel_button:before {
     content: "X";
 }
-
-
 
 .disabled {
     color: grey;

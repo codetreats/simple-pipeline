@@ -46,8 +46,8 @@ if [ "$LEVEL" == "DEBUG" ] ; then
 fi
 
 if [[ $HOST_URL != "" ]] ; then
-    SUBURL=$(echo $LOG | sed -e 's|/var/www/html||g')
-    LINK="${HOST_URL}/${SUBURL}"
+    FILENAME=$(basename $LOG)
+    LINK="${HOST_URL}/pipeline/index.html?execution=${FILENAME}"
 fi
 
 if [[ $(cat $CONTENT) != "" ]] ; then

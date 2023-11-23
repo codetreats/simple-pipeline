@@ -18,6 +18,9 @@ WWW_USER=www-data
 if [[ $KEEP_LOGS == "" ]] ; then
     KEEP_LOGS=3
 fi
+if [[ $PIPELINE_FAIL_MONITOR_LEVEL == "" ]] ; then
+    PIPELINE_FAIL_MONITOR_LEVEL=2
+fi
 
 while true; do
     if [ ! -f $TRIGGER_FILE ] 
@@ -60,7 +63,7 @@ while true; do
             RESULT=0
             if [[ -f $BEFORE ]] ; then
                 echo "$DT"":BEFORE" >> $STATUS
-                $BEFORE $PARAMS > $LOG 2>&1
+                $BEFORE $PARAMS >> $LOG 2>&1
                 RESULT=$?
             fi
             if [[ $RESULT == 0 ]] ; then
@@ -84,7 +87,7 @@ while true; do
                 $BASEDIR/sendlogs.sh OK $LOG
             else
                 echo "$DT"":FAILED" >> $STATUS
-                /update.sh 3 "Pipeline failed" $OVERRIDE_MONITOR_SRC
+                /update.sh $PIPELINE_FAIL_MONITOR_LEVEL "Pipeline failed" $OVERRIDE_MONITOR_SRC
                 $BASEDIR/sendlogs.sh FAIL $LOG
             fi
 

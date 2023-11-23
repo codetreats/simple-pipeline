@@ -27,7 +27,7 @@ async function load() {
         load_job(current_job)
         return
     }
-    if (!is_empty(query_param("job"))) {
+    if (!is_empty(query_param("job")) && is_empty(query_param("execution"))) {
         back_button.style.visibility = "hidden"
         back_button.style.display = "none"
         load_job(query_param("job"))
@@ -36,7 +36,7 @@ async function load() {
 
     const jobs = await get_jobs()
     console.info("Found jobs:", jobs)
-    if (jobs.length <= 1) {
+    if (jobs.length <= 1 && is_empty(query_param("execution"))) {
         back_button.style.visibility = "hidden"
         back_button.style.display = "none"
     }
@@ -56,8 +56,12 @@ async function load() {
 }
 
 async function back() {
-    current_job = undefined
-    load()
+    if (!is_empty(query_param("execution"))) {
+        window.location.href = "index.html"
+    } else {
+        current_job = undefined
+        load()
+    }    
 }
 
 async function cancel() {
@@ -126,7 +130,11 @@ async function refresh(job, execution) {
     console.info("Current HTML:", current_job)
     console.info("Old HTML:", old_executions_html)
 
-    main_container.innerHTML = '<table id="job_overview">' + current_job + old_executions_html + '</table>'
+    if (is_empty(query_param("execution"))) {
+        main_container.innerHTML = '<table id="job_overview">' + current_job + old_executions_html + '</table>'
+    } else {
+        main_container.innerHTML = '<table id="job_overview">' + current_job + old_executions_html + '</table><br><center><button title="Back" class="square_button" id="second_back_button" onclick="back()"></button><center>'
+    }
 }
 
 async function parse_execution(job, execution) {
@@ -195,8 +203,12 @@ async function get_time() {
 }
 
 async function get_job_executions(job) {
-    const response = await fetch(`executions.php?job=${job}`, { cache: "no-store" });
-    return await response.json();
+    if (!is_empty(query_param("execution"))) {
+        return [ query_param("execution") ]
+    } else {
+        const response = await fetch(`executions.php?job=${job}`, { cache: "no-store" });
+        return await response.json();
+    }
 }
 
 async function parse_status(path) {

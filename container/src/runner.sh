@@ -30,6 +30,8 @@ while true; do
     if [ -f $TRIGGER_FILE ]
     then
         sleep 1 # wait until all params are written
+        OVERRIDE_MONITOR_SRC=""
+        PARAMS=""
         source $TRIGGER_FILE
 
         rm $TRIGGER_FILE
@@ -53,7 +55,9 @@ while true; do
               echo "[STEP] Params: $PARAMS" >> $LOG
             fi
             if [[ "$OVERRIDE_MONITOR_SRC" != "" ]] ; then
-              echo "[STEP] Monitor SRC: $OVERRIDE_MONITOR_SRC" >> $LOG
+              echo "[STEP] Monitor SRC (override): $OVERRIDE_MONITOR_SRC" >> $LOG
+            else
+              echo "[STEP] Monitor SRC: $MONITOR_SRC" >> $LOG
             fi
             echo "[STEP] #############################################" >> $LOG
             chown $WWW_USER:$WWW_USER $STATUS

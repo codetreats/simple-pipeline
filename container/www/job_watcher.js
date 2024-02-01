@@ -74,8 +74,8 @@ async function cancel() {
 async function switch_enable_disable() {
     const enabled = enabled_switch.checked ? "1" : "0"
     if (current_job !== undefined) {
-        console.info("Enable job: ", current_job)
-        fetch('trigger.php?filename=enabled&job=' + current_job + '&params=' + enabled, { cache: "no-store" })
+        console.info("Enable/Disable job: ", current_job)
+        fetch('enabled.php?job=' + current_job + '&enabled=' + enabled, { cache: "no-store" })
     }
 }
 
@@ -86,6 +86,8 @@ async function load_job(job) {
     const menu = await get_menu(job)
     document.getElementById('main_title').innerHTML = title
     document.getElementById('menu__box').innerHTML = menu
+    enabled_switch.checked = await is_enabled(job);
+
     document.title = title
     button_container.style.visibility = "visible"
     const tmp = await get_job_executions(job)
@@ -239,6 +241,19 @@ async function get_title(job) {
         return title
     } catch (e) {
         return "unnamed job"
+    }
+}
+
+async function is_enabled(job) {
+    try {
+        const response = await fetch('trigger/' + job + '/enabled.flag', { cache: "no-store" });
+        const text = await response.text();
+        const enabled = text.split('\n').filter(line => line.trim() !== '')[0].trim() == "0" ? false : true
+        console.info("Enabled: " + enabled);
+        return enabled
+    } catch (e) {
+        console.info("Enabled flag unset -> enable job");
+        return true
     }
 }
 

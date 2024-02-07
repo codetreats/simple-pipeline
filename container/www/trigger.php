@@ -8,22 +8,29 @@ function isValidFilename($name) {
     return in_array($name, ["trigger", "cancel", "enabled"]);
 }
 
-// Param missing?
-if (!isset($_GET['job']) || !isset($_GET['filename'])) {
+if (isset($_GET['job'])) {
+    $job = $_GET['job'];
+} else {
+    $job = "";
+}
+
+if (isset($_GET['filename'])) {
+    $filename = $_GET['filename'];
+} else {
+    $filename = "trigger";
+}
+
+// Validate job param
+if ($job != "" && !isValidDirectoryName($job)) {
     return;
 }
 
 // Validate job param
-if ($_GET['job'] != "" && !isValidDirectoryName($_GET['job'])) {
+if (!isValidFilename($filename)) {
     return;
 }
 
-// Validate job param
-if (!isValidFilename($_GET['filename'])) {
-    return;
-}
-
-$filename = getcwd() . '/trigger/' . $_GET["job"] . '/' . $_GET["filename"] . ".flag"; 
+$filename = getcwd() . '/trigger/' . $job . '/' . $filename . ".flag"; 
 $file = fopen($filename, 'w');
 if (isset($_GET['params'])) {
     $params = $_GET['params'];

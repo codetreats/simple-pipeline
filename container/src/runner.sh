@@ -89,6 +89,9 @@ while true; do
                 echo "$DT"":END" >> $STATUS
                 /update.sh 0 "Pipeline finished" $OVERRIDE_MONITOR_SRC
                 $BASEDIR/sendlogs.sh OK $LOG
+                if [[ $NEXTJOB_URL != "" ]] ; then
+                    curl $NEXTJOB_URL/pipeline/trigger.php
+                fi
             else
                 echo "$DT"":FAILED" >> $STATUS
                 /update.sh $PIPELINE_FAIL_MONITOR_LEVEL "Pipeline failed" $OVERRIDE_MONITOR_SRC

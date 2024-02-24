@@ -47,7 +47,7 @@ fi
 
 if [[ $HOST_URL != "" ]] ; then
     FILENAME=$(basename $LOG)
-    LINK="${HOST_URL}/pipeline/index.html?execution=${FILENAME}"
+    LINK="${HOST_URL}/pipeline/index.html"
 fi
 
 if [[ $(cat $CONTENT) != "" ]] ; then

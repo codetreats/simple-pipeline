@@ -1,4 +1,4 @@
-FROM codetreats/simple-pipeline:0.12.0-rc.1-SNAPSHOT
+FROM codetreats/simple-pipeline:0.16.0-rc.3-SNAPSHOT
 
 RUN mkdir /var/www/html/my_important_job_data
 RUN echo "Job Data=>/my_important_job_data" >> /var/www/html/pipeline/menu.txt

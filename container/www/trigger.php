@@ -1,17 +1,7 @@
 <?php
 
-function isValidDirectoryName($name) {
-    return preg_match('/^[a-zA-Z0-9_-]+$/', $name);
-}
-
 function isValidFilename($name) {
     return in_array($name, ["trigger", "cancel", "enabled"]);
-}
-
-if (isset($_GET['job'])) {
-    $job = $_GET['job'];
-} else {
-    $job = "";
 }
 
 if (isset($_GET['filename'])) {
@@ -20,17 +10,12 @@ if (isset($_GET['filename'])) {
     $filename = "trigger";
 }
 
-// Validate job param
-if ($job != "" && !isValidDirectoryName($job)) {
-    return;
-}
-
-// Validate job param
+// Validate filename param
 if (!isValidFilename($filename)) {
     return;
 }
 
-$filename = getcwd() . '/trigger/' . $job . '/' . $filename . ".flag"; 
+$filename = getcwd() . '/trigger/' . $filename . ".flag"; 
 $file = fopen($filename, 'w');
 if (isset($_GET['params'])) {
     $params = $_GET['params'];

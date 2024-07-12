@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
 RUN apt-get update && apt-get install -q -y \
-    aptitude nano inotify-tools curl wget jq zip cron dos2unix rsync iputils-ping \
+    aptitude nano inotify-tools curl wget jq zip cron dos2unix rsync iputils-ping software-properties-common \
     apache2 php libapache2-mod-php php-cli php-common php-imap php-curl \
     python3 python3-pip \
     openjdk-17-jdk

@@ -1,9 +1,5 @@
 <?php
 
-function isValidFilename($name) {
-    return in_array($name, ["trigger", "cancel", "enabled"]);
-}
-
 if (isset($_GET['filename'])) {
     $filename = $_GET['filename'];
 } else {
@@ -11,7 +7,7 @@ if (isset($_GET['filename'])) {
 }
 
 // Validate filename param
-if (!isValidFilename($filename)) {
+if (!in_array($filename), ["trigger", "cancel", "enabled"]) {
     return;
 }
 
@@ -23,7 +19,7 @@ if (isset($_GET['params'])) {
     if (preg_match($params_regex, $params)) {
         fwrite($file, "PARAMS=\"" . $params . "\"\n");
     } else {
-        echo "Forbidden params:'$params'";
+        echo "Forbidden params: '$params'";
     }
 }
 if (isset($_GET['override_monitor_src'])) {
@@ -32,7 +28,7 @@ if (isset($_GET['override_monitor_src'])) {
     if (preg_match($src_regex, $src)) {
         fwrite($file, "OVERRIDE_MONITOR_SRC=" . $src . "\n");
     } else {
-        echo "Forbidden src";
+        echo "Forbidden src: '$src'";
     }
 }
 fclose($file);

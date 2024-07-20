@@ -5,10 +5,15 @@ function mymail($subject,$message)
 $host = getenv("MAIL_HOST");
 $username = getenv("MAIL_USER");
 $password = getenv("MAIL_PASSWORD");
-$server = getenv("MAIL_FROM");
-$from = getenv("MAIL_FROM");
+$from_mail = getenv("MAIL_FROM");
 $to = getenv("MAIL_TO");
-$headers = 'From: ' . getenv("MAIL_FROM") . "\r\n";
+$name = getenv("MAIL_FROMNAME");
+if ($name !== false) {
+    $from = "$name <$from_mail>";
+} else {
+    $from = "$from_mail";
+}
+
 
 // Open an SMTP connection
 $cp = fsockopen ($host, 25, $errno, $errstr, 1);
@@ -36,7 +41,7 @@ $res=fgets($cp,256);
 if(substr($res,0,3) != "235") return "Failed to Authenticate";
 
 // Mail from...
-fputs($cp, "MAIL FROM: <$from>\r\n");
+fputs($cp, "MAIL FROM: <$from_mail>\r\n");
 $res=fgets($cp,256);
 if(substr($res,0,3) != "250") return "MAIL FROM failed";
 
@@ -52,7 +57,7 @@ if(substr($res,0,3) != "354") return "DATA failed";
 
 // Send To:, From:, Subject:, other headers, blank line, message, and finish
 // with a period on its own line (for end of message)
-fputs($cp, "To: $to\r\nFrom: $from\r\nSubject: $subject\r\n$headers\r\n\r\n$message\r\n.\r\n");
+fputs($cp, "To: $to\r\nFrom: $from\r\nSubject: $subject\r\n\r\n$message\r\n.\r\n");
 $res=fgets($cp,256);
 if(substr($res,0,3) != "250") return "Message Body Failed";
 

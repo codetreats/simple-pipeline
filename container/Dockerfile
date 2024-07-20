@@ -19,7 +19,7 @@ COPY src/ /pipeline/src
 COPY src/menu.txt /var/www/html/pipeline/menu.txt
 COPY src/trigger.sh /
 COPY src/update.sh /
-COPY job/ /job
+RUN mkdir /job
 COPY start.sh /
 RUN chown -R www-data:www-data /var/www
 

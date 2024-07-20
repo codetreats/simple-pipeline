@@ -7,7 +7,7 @@ if (isset($_GET['filename'])) {
 }
 
 // Validate filename param
-if (!in_array($filename), ["trigger", "cancel", "enabled"]) {
+if (!in_array($filename, ["trigger", "cancel", "enabled"])) {
     return;
 }
 

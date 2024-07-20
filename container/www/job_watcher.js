@@ -215,7 +215,7 @@ async function is_enabled() {
 
 async function get_menu() {
     try {
-        const response = await fetch('/menu.txt', { cache: "no-store" });
+        const response = await fetch('menu.txt', { cache: "no-store" });
         const lines = await response.text();
         let menu = ""
         lines.split('\n').forEach(line => {

@@ -18,9 +18,12 @@ dos2unix /bin/release
 dos2unix /bin/menu
 dos2unix /bin/crontrigger
 dos2unix /etc/cron.d/cronjob
-cron
-crontab /etc/cron.d/cronjob
+
 /pipeline/src/htaccess.sh
 /pipeline/src/prepare.sh
+
+cron
+crontab /etc/cron.d/cronjob
+
 /pipeline/src/killer.sh &
 /pipeline/src/runner.sh

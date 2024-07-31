@@ -9,7 +9,7 @@ $from_mail = getenv("MAIL_FROM");
 $to = getenv("MAIL_TO");
 $name = getenv("MAIL_FROMNAME");
 if ($name !== false) {
-    $from = "$name <$from_mail>";
+    $from = "\"$name\" <$from_mail>";
 } else {
     $from = "$from_mail";
 }

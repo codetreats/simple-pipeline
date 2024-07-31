@@ -1,6 +1,6 @@
 #!/bin/bash
 ###############################################
-RUNSTEP=/pipeline/src/run_step.sh
+RUNSTEP=/pipeline/run_step.sh
 ###############################################
 set -e
 STATUS=$1

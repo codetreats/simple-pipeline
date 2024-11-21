@@ -1,5 +1,6 @@
 #!/bin/bash
-chmod +x /pipeline//*.sh
+set -e
+chmod +x /pipeline/*.sh
 chmod +x /job/*.sh
 chmod +x /*.sh
 

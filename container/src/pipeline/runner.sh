@@ -43,8 +43,8 @@ while true; do
         if [ $ENABLED == "1" ] ; then
             ## prepare job
             DT=$(date "+%F_%T")
-            STATUS=$STATUS_DIR/$DT.log
-            LOG=$LOG_DIR/$DT.log
+            STATUS=$STATUS_DIR/$DT.txt
+            LOG=$LOG_DIR/$DT.txt
 
             echo "$DT"":START" > $STATUS
 

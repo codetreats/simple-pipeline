@@ -51,9 +51,9 @@ if [[ $HOST_URL != "" ]] ; then
 fi
 
 if [[ $(cat $CONTENT) != "" ]] ; then
-    php mail.php "[$OK] Logs from $JOB_TITLE" "$LINK $(cat $CONTENT)"    
+    php /mail.php "[$OK] Logs from $JOB_TITLE" "$LINK $(cat $CONTENT)"    
 else
     if [[ "$LEVEL" == "LINK" ]] ; then
-        php mail.php "[$OK] Logs from $JOB_TITLE" "$LINK"    
+        php /mail.php "[$OK] Logs from $JOB_TITLE" "$LINK"    
     fi
 fi

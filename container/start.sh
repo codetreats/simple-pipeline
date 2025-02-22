@@ -14,13 +14,13 @@ if [[ $APACHE_HTTPS_PORT != "" ]] ; then
 fi
 
 echo $JOB_TITLE > /var/www/html/pipeline/status/title.txt
-service apache2 start
 dos2unix /bin/debug
 dos2unix /bin/release
 dos2unix /bin/menu
 dos2unix /bin/crontrigger
 dos2unix /etc/cron.d/cronjob
 
+/pipeline/apache.sh
 /pipeline/htaccess.sh
 /pipeline/setup.sh
 /pipeline/prepare.sh

@@ -113,6 +113,10 @@ td.step_executing {
     content: "\25B6";
 }
 
+#reload_button:before {
+  content: "\27F3";
+}
+
 #second_back_button:before {
   content: "\21B6";
 }

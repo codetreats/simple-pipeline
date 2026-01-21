@@ -32,4 +32,5 @@ if (isset($_GET['override_monitor_src'])) {
     }
 }
 fclose($file);
+header('Location: /pipeline/index.php');
 ?>

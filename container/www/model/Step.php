@@ -63,7 +63,7 @@ class Step
             $secondsStr = $seconds . "s";
         }
 
-        return htmlspecialchars($this->description, ENT_QUOTES, 'UTF-8')
+        return $this->description
              . "<br>"
              . $minutesStr
              . $secondsStr;

@@ -24,35 +24,31 @@
 </head>
 
 <body>
-    <h1 id='main_title'><?php echo $title ?></h1>
     <div class='hamburger-menu'>
         <input id='menu__toggle' type='checkbox' />
         <label class='menu__btn' for='menu__toggle'>
           <span></span>
         </label>    
+        <div class='menu__overlay' onclick="document.getElementById('menu__toggle').checked = false;"></div>
         <ul id='menu__box' class='menu__box'>
             <?php echo $menu ?>
         </ul>
-        <button title='Disable/Enable Jobs' class='square_button' id='power_button'>
+        <h1 id='main_title'><?php echo $title ?></h1>
+        <div style='flex: 1;'></div>
+        <div class='switch-container' title='Disable/Enable Jobs'>
             <label class='switch'>
                 <input id='enabled_switch' type='checkbox' <?php echo $enabled ?> >
                 <span class='slider round'></span>
             </label>
-        </button>
+        </div>
         <button title='Cancel Job' class='square_button' id='cancel_button'></button>
         <button title='Reload' class='square_button' id='reload_button' onclick="window.location.href='index.php'"></button>
         <button title='Run Job' class='square_button' id='trigger_button'></button>
     </div>
-    <div id='button_container_outer'>
-
-        
-    </div>
-    <p></p>
     <div id='params_container'>
         <label for='params'>Params: </label>
         <input type='text' id='params' name='params'>
     </div>
-    <p></p>
     <div id='main_container'><?php echo $jobs ?></div>
 </body>
 

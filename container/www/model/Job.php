@@ -25,7 +25,7 @@ class Job
         $date = $this->start->format('Y-m-d');
         $time = $this->start->format('H:i:s');
         $html .= '<td class="job_status job_status_' . $this->status->value . '"></td>';
-        $html .= '<td class="timestamp">' . $date . '<br>' . $time . '</td>';
+        $html .= '<td class="timestamp timestamp_' . $this->status->value . '">' . $date . '<br>' . $time . '</td>';
         foreach($this->steps as $step) {
             $html.= $step->toHtml();
         }

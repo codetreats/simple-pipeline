@@ -13,3 +13,4 @@ fi
 # build image
 cd $BASEDIR/container
 docker build -t codetreats/simple-pipeline:$VERSION .
+docker tag codetreats/simple-pipeline:$VERSION codetreats/simple-pipeline:latest

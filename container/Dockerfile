@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -q -y \
     aptitude nano inotify-tools curl wget jq zip cron dos2unix rsync iputils-ping software-properties-common locales \
     apache2 php libapache2-mod-php php-cli php-common php-imap php-curl php-yaml \
     python3 python3-pip \
-    openjdk-17-jdk
+    openjdk-21-jdk
 
 RUN locale-gen en_US.UTF-8
 RUN update-locale "LANG=en_US.UTF-8"
